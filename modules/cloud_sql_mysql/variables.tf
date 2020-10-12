@@ -2,9 +2,7 @@
 
 # It collects the different regions available within GCP.
 
-data "google_compute_regions" "available" {
-  project = var.project_id
-}
+data "google_compute_regions" "available" {}
 
 # ========================= VARIABLE DEFINITION =================== #
 
