@@ -1,7 +1,8 @@
 resource "google_sql_database_instance" "mysql_instance" {
-	name             = var.name
+  name             = var.name
   database_version = var.database_version
-  region           = var.cloud_sql_region
+  # It verifies whether the region input is a valid GCP region. If not, it defaults to us-central1.
+  region = contains(data.google_compute_regions.available.names, var.cloud_sql_region) == true ? var.cloud_sql_region : data.google_compute_regions.available.names[17]
 
   settings {
     tier              = var.tier
@@ -25,3 +26,4 @@ resource "google_sql_database_instance" "mysql_instance" {
     }
   }
 }
+

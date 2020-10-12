@@ -1,3 +1,13 @@
+# ======================== DATA SOURCE DEFINITION ================= #
+
+# It collects the different regions available within GCP.
+
+data "google_compute_regions" "available" {
+  project = var.project_id
+}
+
+# ========================= VARIABLE DEFINITION =================== #
+
 variable "name" {
   description = "Name of the Cloud SQL instance"
   type        = string
@@ -9,11 +19,10 @@ variable "database_version" {
   default     = "MYSQL_5_6"
 }
 
-
 variable "cloud_sql_region" {
+
   description = "The region where the Cloud SQL instance will reside"
   type        = string
-  default     = "europe-west1"
 }
 
 variable "tier" {
