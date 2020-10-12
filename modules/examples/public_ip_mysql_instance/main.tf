@@ -12,7 +12,7 @@ provider "google" {
 
 module "public_mysql_instance" {
 
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_mysql"
+  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_mysql?ref=hotfix-cloud-sql-mysql-module"
 
   name             = var.instance_name
   database_version = var.mysql_version
