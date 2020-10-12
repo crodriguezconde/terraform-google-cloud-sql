@@ -12,7 +12,7 @@ provider "google" {
 
 module "public_mysql_instance" {
 
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_mysql?ref=hotfix-cloud-sql-mysql-module"
+  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_mysql"
 
   name             = var.instance_name
   database_version = var.mysql_version
@@ -24,7 +24,7 @@ module "public_mysql_instance" {
 # Therefore, we will create a google_sql_user to define a custom user with a restricted host and strong password.
 
 module "cloud_sql_user" {
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_user?ref=hotfix-cloud-sql-user"
+  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_user?"
 
   sql_user_name           = var.sql_user_name
   cloud_sql_instance_name = module.public_mysql_instance.name
