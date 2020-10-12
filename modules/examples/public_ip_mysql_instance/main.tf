@@ -24,7 +24,7 @@ module "public_mysql_instance" {
 # Therefore, we will create a google_sql_user to define a custom user with a restricted host and strong password.
 
 module "cloud_sql_user" {
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_user?"
+  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_user"
 
   sql_user_name           = var.sql_user_name
   cloud_sql_instance_name = module.public_mysql_instance.name
