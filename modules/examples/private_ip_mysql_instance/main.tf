@@ -35,7 +35,7 @@ module "allocated_ip_address_range" {
 module "private_connection" {
   source                      = "git::https://github.com/crodriguezconde/private_connection.git"
   associated_vpc_network_id   = module.vpc_network.vpc_network_id
-  allocated_ip_address_ranges = module.allocated_ip_address_range.name
+  allocated_ip_address_ranges = [module.allocated_ip_address_range.name]
 }
 
 module "private_mysql_instance" {
