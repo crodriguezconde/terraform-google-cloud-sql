@@ -22,6 +22,6 @@ output "private_ip_address" {
 
 output "name" {
 	description = "Represents the name of the Cloud SQL instance."
-	value = google_sql_daabase_instance.mysql_instance.name
+	value = google_sql_database_instance.mysql_instance.name
 }
 
