@@ -1,4 +1,4 @@
-variable "project_id" {}
+#variable "project_id" {}
 
 variable "sql_user_name" {
 	type = string
