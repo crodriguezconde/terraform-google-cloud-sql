@@ -74,10 +74,12 @@ Module Input Variables
 
 - `availability_type`: (`Optional`)(`string`) The availability of the Cloud SQL MySQL instance. This value is helpful when trying to maximize uptime within your service(s).
 
- Cloud SQL MySQL instances can be configured as **[High Availability (HA)](https://cloud.google.com/sql/docs/mysql/high-availability) or Single Zone (SZ)**.
+   Cloud SQL MySQL instances can be configured as **[High Availability (HA)](https://cloud.google.com/sql/docs/mysql/high-availability) or Single Zone (SZ)**.
 
+  
   **Default**: `ZONAL`
 
+  
   **Allowed_values**: `ZONAL, REGIONAL`
 
 - `disk_size`: (`Optional`)(`number`) The size of the Cloud SQL instance data disk, in GB. 
