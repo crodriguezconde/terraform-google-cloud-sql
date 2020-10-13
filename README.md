@@ -57,9 +57,10 @@ Module Input Variables
 
 - `cloud_sql_region`: (`Optional`)(`string`) The region the Cloud SQL instance will reside in.
 
- [Here](https://cloud.google.com/sql/docs/mysql/locations) you will find the different region(s) available for Cloud SQL MySQL instances.
+   
+   [Here](https://cloud.google.com/sql/docs/mysql/locations) you will find the different region(s) available for Cloud SQL MySQL instances.
  
-  **Default**: `us-central1`
+   **Default**: `us-central1`
 
 - `tier`: (`Optional`)(`string`) Tier of the Cloud SQL MySQL instance. [Here](https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing) you will find the list of available tier based on the region, as well as their pricing.
 
