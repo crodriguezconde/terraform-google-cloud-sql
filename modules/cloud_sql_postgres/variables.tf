@@ -97,6 +97,7 @@ variable "ipv4_enabled" {
 variable "vpc_network_id" {
   description = "The VPC network from which the Cloud SQL instance is accessible using private IP"
   type        = string
+	default = ""
 }
 
 variable "require_ssl" {
