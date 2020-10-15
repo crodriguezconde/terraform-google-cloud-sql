@@ -45,9 +45,9 @@ module "private_mysql_instance" {
 
   source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_mysql"
 
-  name             = var.instance_name
-  database_version = var.mysql_version
-  cloud_sql_region = var.instance_region
+  name             = "Replace with the name of the Cloud SQL instance."
+  database_version = "MYSQL_5_7"
+  cloud_sql_region = "europe-west1"
   # We are disabling the Public IP from the Cloud SQL instance as
   # we only want to access it through private IP address.
   ipv4_enabled   = false
@@ -63,7 +63,8 @@ module "private_mysql_instance" {
 module "cloud_sql_user" {
   source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_user"
 
-  sql_user_name           = var.sql_user_name
+  sql_user_name           = "${terraform.workspace}-terraform-user"
   cloud_sql_instance_name = module.private_mysql_instance.name
-  sql_user_password       = var.sql_user_password
+  # The password for the user should not be hardcoded in the configuration file, but just for the sake of the example, the password here is empty.
+  sql_user_password = ""
 }
