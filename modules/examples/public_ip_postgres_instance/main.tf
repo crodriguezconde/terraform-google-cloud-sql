@@ -14,10 +14,9 @@ module "public_postgres_instance" {
 
   source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_postgres"
 
-  name             = "Replace with the name of the Cloud SQL instance"
+  name             = "Name of the Cloud SQL PostgreSQL instance."
   database_version = "POSTGRES_10"
   cloud_sql_region = "europe-west1"
-	vpc_network_id   = ""
 }
 
 # Second-generation instances include a default 'root'@'%' user with no password. 
@@ -29,6 +28,7 @@ module "cloud_sql_user" {
 
   sql_user_name           = "${terraform.workspace}-terraform-postgres-user"
   cloud_sql_instance_name = module.public_postgres_instance.name
-  # The password for the user should not be hardcoded in the configuration file, but just for the sake of the example, the password here is empty.
-  sql_user_password = ""
+  # Postgres will error out if you leave the password empty.
+  # Also, please remember to not hardcode your password into the main.tf file as it could be pushed to version control. 
+  sql_user_password = "Password for the PostgreSQL user."
 }
