@@ -128,6 +128,11 @@ variable "master_instance_name" {
   default     = ""
 }
 
+variable "backup_enabled" {
+  description = "(Optional) True if backup configuration is enabled."
+  type        = bool
+  default     = false
 
+}
 
 
