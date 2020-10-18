@@ -16,6 +16,7 @@ resource "google_sql_database_instance" "mysql_instance" {
     disk_type         = var.disk_type
     backup_configuration {
       binary_log_enabled = var.binary_log_enabled
+      enabled            = var.backup_enabled
     }
     ip_configuration {
       ipv4_enabled    = var.ipv4_enabled
