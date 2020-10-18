@@ -35,6 +35,7 @@ module "master_mysql_instance" {
 #This user will be deleted by Terraform on instance creation. 
 # Therefore, we will create a google_sql_user to define a custom user with a restricted host and strong password.
 
+# Any users created for the Cloud SQL master instance will be inherited to the read replica(s) instance as well.
 module "cloud_sql_user" {
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
 
