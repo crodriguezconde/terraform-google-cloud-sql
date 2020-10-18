@@ -2,19 +2,21 @@
 
 # It collects the different regions available within GCP.
 
-data "google_compute_regions" "available" {}
+data "google_compute_regions" "available" {
+# project = var.project_id
+}
 
 # ========================= VARIABLE DEFINITION =================== #
-
+# variable "project_id" {}
 variable "name" {
   description = "Name of the Cloud SQL instance"
   type        = string
 }
 
 variable "database_version" {
-  description = "The MySQL version to use. Supported values are: MYSQL_5_6, MYSQL_5_7 and MYSQL_8_0. It defaults to MYSQL_5_6"
+  description = "The MySQL version to use. Supported values are: POSTGRES_9_6, POSTGRES_10, POSTGRES_11, POSTGRES_12. It defaults to POSTGRES_10"
   type        = string
-  default     = "MYSQL_5_6"
+  default     = "POSTGRES_10"
 }
 
 variable "cloud_sql_region" {
@@ -24,9 +26,9 @@ variable "cloud_sql_region" {
 }
 
 variable "tier" {
-  description = "Tier of the Cloud SQL instance. It defaults to db-n1-standard-1"
+  description = "Tier of the Cloud SQL instance. It defaults to db-g1-small"
   type        = string
-  default     = "db-n1-standard-1"
+  default     = "db-g1-small"
 }
 
 variable "activation_policy" {
@@ -41,7 +43,7 @@ variable "activation_policy" {
 }
 
 variable "availability_type" {
-  description = "The availability of the Cloud SQL instance. \n \n High Availability (HA) --> REGIONAL \n Single Zone (SZ) --> ZONAL. It defaults to ZONAL"
+  description = "The availability of the Cloud SQL instance. \n \n High Availability (HA) --> REGIONAL \n Single Zone (SZ) --> ZONAL. It defaults to ZONAL"
   type        = string
   default     = "ZONAL"
   validation {
@@ -80,8 +82,8 @@ variable "disk_autoresize" {
   }
 }
 
-variable "binary_log_enabled" {
-  description = "True if you would like to enable binary logs"
+variable "point_in_time_recovery_enabled" {
+  description = "True if Point-In-Time-Recovery is enabled."
   type        = string
   default     = false
 }
@@ -95,7 +97,7 @@ variable "ipv4_enabled" {
 variable "vpc_network_id" {
   description = "The VPC network from which the Cloud SQL instance is accessible using private IP"
   type        = string
-  default     = null
+	default = ""
 }
 
 variable "require_ssl" {
@@ -122,17 +124,8 @@ variable "update_track" {
   default     = ""
 }
 
-variable "master_instance_name" {
-  description = "(Optional) The name of the instance that will act as the master in the replication setup. Note, this requires the master to have binary_log_enabled set, as well as existing backups."
-  type        = string
-  default     = ""
-}
-
 variable "backup_enabled" {
-  description = "(Optional) True if backup configuration is enabled."
-  type        = bool
-  default     = false
-
+	description = "(Optional) True if backup configuration is enabled. If disabled, PITR should be disabled too."
+	type = bool
+	default = false
 }
-
-
