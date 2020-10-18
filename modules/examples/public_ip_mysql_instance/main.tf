@@ -12,7 +12,7 @@ provider "google" {
 
 module "public_mysql_instance" {
 
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_mysql"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
   name             = "Replace with the name of the Cloud SQL instance"
   database_version = "MYSQL_5_7"
@@ -24,7 +24,7 @@ module "public_mysql_instance" {
 # Therefore, we will create a google_sql_user to define a custom user with a restricted host and strong password.
 
 module "cloud_sql_user" {
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_user"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
 
   sql_user_name           = "${terraform.workspace}-terraform-user"
   cloud_sql_instance_name = module.public_mysql_instance.name
