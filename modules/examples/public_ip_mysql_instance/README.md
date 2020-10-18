@@ -1,3 +1,31 @@
 # How to create a Public Cloud SQL MySQL instance
 
+This example demonstrates how to create a [Cloud SQL MySQL instance](https://cloud.google.com/sql/docs/mysql) configured for [public IP address](https://cloud.google.com/sql/docs/mysql/configure-ip) access.
+
+It also creates a new [Cloud SQL user](https://cloud.google.com/sql/docs/mysql/create-manage-users) since **Terraform deletes the default user** upon creation for security reasons, as described [here.](https://www.terraform.io/docs/providers/google/r/sql_database_instance.html)
+
+## How can I connect to my Cloud SQL MySQL instance once it is created?
+
+To be able to connect to your Cloud SQL MySQL instance, you will need the following parameter(s) from your newly created Cloud SQL MySQL instance.
+
+- Cloud SQL [username](https://cloud.google.com/sql/docs/mysql/create-manage-users#listing_users) & password.
+- Cloud SQL MySQL instance name, that can be found running the following [command](https://cloud.google.com/sdk/gcloud/reference/sql/instances/list) on your Cloud Shell:
+
+Once you have all the above parameter(s), you could connect to your Cloud SQL MySQL instance via `gcloud` command, as follows:
+
+`gcloud sql connect [INSTANCE_NAME] --user=[CLOUD_SQL_USERNAME] `
+
+[Here](https://cloud.google.com/sdk/gcloud/reference/sql/connect) you will find further information in regards to the `gcloud` command shown above.
+
+Once the command has been run, it will prompt you to enter your password. Once it has been introduced, you should be able to run SQL statements within your newly created Cloud SQL MySQL instance!
+
+## Dependencies
+
+In order to successfully create a new Cloud SQL MySQL instance, the following modules will be installed upon running `terraform init -upgrade`:
+
+- `terraform-google-cloud-sql.git//modules/cloud_sql_mysql` responsible for creating the actual Cloud SQL MySQL instance. 
+- `terraform-google-cloud-sql.git//modules/cloud_sql_user` responsible for creating a new Cloud SQL user upon instance's creation in order to be able to connect to the Cloud SQL MySQL instance.
+
+
+
 
