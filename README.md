@@ -37,7 +37,7 @@ In this section, you will find further information on how to create a Cloud SQL 
 
 ```hcl
 module "mysql_instance" {
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_mysql"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
   name = "cloud-sql-mysql-instance"
   database_version = "MYSQL_5_7"
   cloud_sql_region = "us-east1"
