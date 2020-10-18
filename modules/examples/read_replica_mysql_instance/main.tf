@@ -23,12 +23,12 @@ module "master_mysql_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  name             = "mysql-instance"
+  name             = "Replace with the name of the Cloud SQL instance"
   database_version = local.mysql_version
   cloud_sql_region = local.csql_region
-  # When creating a replica, is necessary to enable bin logs within the instance.
+  # When creating a replica, is necessary to enable binary logs as well as backup(s) within the master instance.
   binary_log_enabled = true
-
+  backup_enabled     = true
 }
 
 # Second-generation instances include a default 'root'@'%' user with no password. 
@@ -48,7 +48,9 @@ module "mysql_read_replica_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  name             = "${module.master_mysql_instance.name}-replica"
+  # This will create 2 different Cloud SQL MySQL read replica instances with the master instance name - count number
+  count            = 2
+  name             = "${module.master_mysql_instance.name}-replica-${count.index}"
   database_version = local.mysql_version
   cloud_sql_region = local.csql_region
 
