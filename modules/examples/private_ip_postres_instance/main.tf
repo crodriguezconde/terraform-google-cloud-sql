@@ -43,7 +43,7 @@ module "private_postgres_instance" {
   # This is needed as we need to first peer with the service producer before assigning a private IP address with Cloud SQL.
   depends_on = [module.private_connection]
 
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_postgres"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_postgres"
 
   name             = "postres-private-instance"
   database_version = "POSTGRES_10"
@@ -61,7 +61,7 @@ module "private_postgres_instance" {
 # Therefore, we will create a google_sql_user to define a custom user with a restricted host and strong password.
 
 module "cloud_sql_user" {
-  source = "git::https://github.com/crodriguezconde/cloud_sql.git//modules/cloud_sql_user"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
 
   sql_user_name           = "${terraform.workspace}-terraform-user"
   cloud_sql_instance_name = module.private_postgres_instance.name
