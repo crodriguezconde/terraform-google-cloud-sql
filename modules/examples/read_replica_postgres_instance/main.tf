@@ -52,7 +52,7 @@ module "private_postgres_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_postgres"
 
-  name             = "Name of the Cloud SQL PostgreSQL master instance."
+  name             = "postgres-primary-instance"
   database_version = local.postgres_version
   cloud_sql_region = local.csql_region
   # We are disabling the Public IP from the Cloud SQL instance as
