@@ -1,10 +1,10 @@
 resource "google_sql_database_instance" "postgres_instance" {
-# project          = var.project_id
-	name             = var.name
+  # project          = var.project_id
+  name             = var.name
   database_version = var.database_version
   # It verifies whether the region input is a valid GCP region. If not, it defaults to us-central1.
-  region = contains(data.google_compute_regions.available.names, var.cloud_sql_region) == true ? var.cloud_sql_region : data.google_compute_regions.available.names[17]
-
+  region               = contains(data.google_compute_regions.available.names, var.cloud_sql_region) == true ? var.cloud_sql_region : data.google_compute_regions.available.names[17]
+  master_instance_name = var.master_instance_name
   settings {
     tier              = var.tier
     activation_policy = var.activation_policy
@@ -14,8 +14,8 @@ resource "google_sql_database_instance" "postgres_instance" {
     disk_type         = var.disk_type
     backup_configuration {
       point_in_time_recovery_enabled = var.point_in_time_recovery_enabled
-    	enabled = var.backup_enabled
-		}
+      enabled                        = var.backup_enabled
+    }
     ip_configuration {
       ipv4_enabled    = var.ipv4_enabled
       private_network = var.vpc_network_id

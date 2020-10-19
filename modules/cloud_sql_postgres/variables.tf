@@ -3,7 +3,7 @@
 # It collects the different regions available within GCP.
 
 data "google_compute_regions" "available" {
-# project = var.project_id
+  # project = var.project_id
 }
 
 # ========================= VARIABLE DEFINITION =================== #
@@ -97,7 +97,7 @@ variable "ipv4_enabled" {
 variable "vpc_network_id" {
   description = "The VPC network from which the Cloud SQL instance is accessible using private IP"
   type        = string
-	default = ""
+  default     = ""
 }
 
 variable "require_ssl" {
@@ -125,7 +125,13 @@ variable "update_track" {
 }
 
 variable "backup_enabled" {
-	description = "(Optional) True if backup configuration is enabled. If disabled, PITR should be disabled too."
-	type = bool
-	default = false
+  description = "(Optional) True if backup configuration is enabled. If disabled, PITR should be disabled too."
+  type        = bool
+  default     = false
+}
+
+variable "master_instance_name" {
+  description = "(Optional) The name of the instance that will act as the master in the replication setup. Note, this requires the master to have binary_log_enabled set, as well as existing backups."
+  type        = string
+  default     = ""
 }
