@@ -14,7 +14,7 @@ module "public_postgres_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_postgres"
 
-  name             = "Name of the Cloud SQL PostgreSQL instance."
+  name             = "public-postgres-instance"
   database_version = "POSTGRES_10"
   cloud_sql_region = "europe-west1"
 }
