@@ -4,6 +4,15 @@ This example demonstrates how to create a [Cloud SQL MySQL instance](https://clo
 
 It also creates a new [Cloud SQL user](https://cloud.google.com/sql/docs/mysql/create-manage-users) since **Terraform deletes the default user** upon creation for security reasons, as described [here.](https://www.terraform.io/docs/providers/google/r/sql_database_instance.html)
 
+## Usage
+
+1. `terraform init -upgrade`
+2. `terraform apply`
+
+If you want to edit or change the variable's name, such as the Cloud SQL MySQL instance name, just edit the `main.tf` and modify the variable itself.
+
+Afterwards, if you have already initialize terraform, just run `terraform apply` and you will be ready to go!
+
 ## How can I connect to my Cloud SQL MySQL instance once it is created?
 
 To be able to connect to your Cloud SQL MySQL instance, you will need the following parameter(s) from your newly created Cloud SQL MySQL instance.
