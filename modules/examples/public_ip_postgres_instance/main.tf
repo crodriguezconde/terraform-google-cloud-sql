@@ -30,5 +30,5 @@ module "cloud_sql_user" {
   cloud_sql_instance_name = module.public_postgres_instance.name
   # Postgres will error out if you leave the password empty.
   # Also, please remember to not hardcode your password into the main.tf file as it could be pushed to version control. 
-  sql_user_password = "Password for the PostgreSQL user."
+  sql_user_password = var.sql_user_password
 }
