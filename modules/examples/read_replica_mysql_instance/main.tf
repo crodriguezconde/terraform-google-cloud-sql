@@ -23,7 +23,7 @@ module "master_mysql_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  name             = "Replace with the name of the Cloud SQL instance"
+  name             = "mysql-instance"
   database_version = local.mysql_version
   cloud_sql_region = local.csql_region
   # When creating a replica, is necessary to enable binary logs as well as backup(s) within the master instance.
