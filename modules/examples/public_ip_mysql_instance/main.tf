@@ -14,7 +14,7 @@ module "public_mysql_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  name             = "Replace with the name of the Cloud SQL instance"
+  name             = "public-mysql-instance"
   database_version = "MYSQL_5_7"
   cloud_sql_region = "europe-west1"
 }
