@@ -90,4 +90,17 @@ Module Input Variables
 
   ***Note: When using `master_instance_name`, the master instance should have both binary log(s) or PITR and backup(s) enabled.***
 
+## Module Output variables
 
+- `self_link`:(`string`). The URI of the Cloud SQL instance created.
+
+- `connection_name`:(`string`). Represents the connection name used by other GCP products to connect to the Cloud SQL instance.
+
+ It has the following format: `[PROJECT_ID]:[REGION]:[INSTANCE_NAME]`
+
+
+- `public_ip_address`:(`string`). Represents the public IPv4 address assigned to the Cloud SQL instance. 
+
+- `private_ip_address`:(`string`). Represents the private IPv4 address assigned to the Cloud SQL instance. 
+
+- `name`:(`string`). Represents the name of the Cloud SQL instance.
