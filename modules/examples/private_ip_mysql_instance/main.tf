@@ -13,7 +13,7 @@ provider "google" {
 # ==== VPC network definition ==== #
 
 module "vpc_network" {
-  source           = "git::https://github.com/crodriguezconde/vpc_network.git"
+  source           = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/vpc_network"
   vpc_network_name = "private-csql-vpc"
   vpc_description  = "VPC network created to house the CSQL instance private IP."
   routing_mode     = "GLOBAL"
@@ -22,7 +22,7 @@ module "vpc_network" {
 # ==== Allocated IP range definition ==== #
 
 module "allocated_ip_address_range" {
-  source                    = "git::https://github.com/crodriguezconde/allocated_ip_address_range.git"
+  source                    = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/allocated_ip_address_range"
   name                      = "private-ip-allocation"
   description               = "Allocation for the Cloud SQL instance."
   prefix_length             = 16
@@ -33,7 +33,7 @@ module "allocated_ip_address_range" {
 }
 
 module "private_connection" {
-  source                      = "git::https://github.com/crodriguezconde/private_connection.git"
+  source                      = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/private_connection"
   associated_vpc_network_id   = module.vpc_network.vpc_network_id
   allocated_ip_address_ranges = [module.allocated_ip_address_range.name]
 }
@@ -65,6 +65,5 @@ module "cloud_sql_user" {
 
   sql_user_name           = "${terraform.workspace}-terraform-user"
   cloud_sql_instance_name = module.private_mysql_instance.name
-  # The password for the user should not be hardcoded in the configuration file, but just for the sake of the example, the password here is empty.
-  sql_user_password = ""
+  sql_user_password       = var.sql_user_password
 }
