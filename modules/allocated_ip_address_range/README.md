@@ -44,6 +44,13 @@ Module Input Variables
 
   The format should be of the type `projects/{{project}}/global/networks/{{name}}`
 
+## Module Output variables
+
+- `name`: (`string`). The name of the allocated IP address range.
+
+- `id`: (`string`). An identifier for the global address created with format `projects/{{project}}/global/addresses/{{name}}`
+
+- `creation_timestamp`: (`string`). Creation timestamp in RFC3339 text format.
    
 ## Related documentation
 
