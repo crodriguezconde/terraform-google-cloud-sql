@@ -67,6 +67,10 @@ Module Input Variables
 
   **Default**: `false`
 
+- `backup_enabled`:(`Optional`)(`bool`). True if backup configuration is enabled.
+
+  **Default**: `false`
+
 - `ipv4_enabled`: (`Optional`)(`bool`). Whether the Cloud SQL instance should be assigned a public IPv4 IP address.
 
   **Default**: `true`
@@ -85,5 +89,9 @@ Module Input Variables
 - `maintenance_prefered_hour `: (`Optional`)(`number`). Hour of the day (0-23). Ignored if maintenance_prefered_day not set.
 
 - `update_track `: (`Optional`)(`string`). Receive updates before the maintenance (canary) or later (stable)
+
+- `master_instance_name`:(`Optional`)(`string`). Name of the Cloud SQL MySQL master instance you would like to attach a read replica.
+
+  ***Note: When using `master_instance_name`, the master instance should have both binary log(s) and backup(s) enabled.***
 
 
