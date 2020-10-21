@@ -10,22 +10,15 @@ provider "google" {
   project = var.project_id
 }
 
-locals {
-
-  mysql_version = "MYSQL_5_7"
-  csql_region   = "europe-west1"
-
-}
-
 
 module "master_mysql_instance" {
 
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  name             = "mysql-instance"
-  database_version = local.mysql_version
-  cloud_sql_region = local.csql_region
+  name             = var.instance_name
+  database_version = var.mysql_version
+  cloud_sql_region = var.sql_region
   # When creating a replica, is necessary to enable binary logs as well as backup(s) within the master instance.
   binary_log_enabled = true
   backup_enabled     = true
@@ -39,7 +32,7 @@ module "master_mysql_instance" {
 module "cloud_sql_user" {
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
 
-  sql_user_name           = "${terraform.workspace}-terraform-user"
+  sql_user_name           = var.sql_user_name
   cloud_sql_instance_name = module.master_mysql_instance.name
   sql_user_password       = var.sql_user_password
 }
@@ -48,11 +41,11 @@ module "mysql_read_replica_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  # This will create 2 different Cloud SQL MySQL read replica instances with the master instance name - count number
-  count            = 2
+  # This will create X different Cloud SQL MySQL read replica instances with the master instance name - count number
+  count            = var.number_of_replicas
   name             = "${module.master_mysql_instance.name}-replica-${count.index}"
-  database_version = local.mysql_version
-  cloud_sql_region = local.csql_region
+  database_version = var.mysql_version
+  cloud_sql_region = var.sql_region
 
   master_instance_name = module.master_mysql_instance.name
 
