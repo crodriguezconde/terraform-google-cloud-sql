@@ -26,7 +26,7 @@ Module Input Variables
 - `cloud_sql_instance_name`: (`Required`)(`string`). The name of the Cloud SQL instance the user will be created on.
 
 
-- `sql_user_password`: (`Optional`)(`string`) The password for the Cloud SQL user.
+- `sql_user_password`: (`Required`)(`string`) The password for the Cloud SQL user.
 
  ***Note: For Cloud SQL PostgreSQL instances, the password must be a value. It cannot be empty.***
 
