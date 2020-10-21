@@ -6,7 +6,7 @@ This module is intended to be use to easily create Cloud SQL instances (MySQL, P
 
 Cloud SQL is a fully-managed database service that helps you set up, maintain, manage, and administer your relational databases on Google Cloud Platform.
 
-You can use Cloud SQL with MySQL, PostgreSQL, or SQL Server.
+You can use Cloud SQL with MySQL, PostgreSQL.
 
 Not sure what database option is right for you? Learn more about GCP's [database services](https://cloud.google.com/products/databases).
 
@@ -19,101 +19,78 @@ Below you will find how this module is structured:
 ## **MySQL for Cloud SQL instance(s)**
   
    1. [**Usage of the MySQL module.**](#usage)
-   2. [**Module Input Variables.**](#module-input-variables)
+   2. [**Module Input Variables.**]()
 
 ## PostgreSQL for Cloud SQL instance(s)
 
+1. [**Usage of the PostgreSQL module.**](#usage)
+2. [**Module Input Variables.**]()
 
 ## Cloud SQL user(s)
 
-- Adding a new Cloud SQL user to your existing Cloud SQL instance.
+1. [**Usage of the Cloud SQL user module.**](#usage)
+2. [**Module Input Variables.**]()
 
-# MySQL for Cloud SQL instances
+## Before you begin
 
-In this section, you will find further information on how to create a Cloud SQL MySQL instance using the module. 
+- If you do not have one, create a new GCP project in the [Google Cloud Console]() and set up billing on that project.
 
+- [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) if you do not have it installed, as it will be needed in order to play with the modules.  
+
+## Authentication
+
+There are **two main ways** to authenticate when using Terraform with the Google provider:
+
+1. The **easiest way** is to authenticate using the `gcloud` command as follows:
+
+```
+gcloud auth application-default login
+```
+
+[Here](https://cloud.google.com/sdk/gcloud/reference/auth/application-default) you will find further information on the command specified above. 
+
+If you do not have it installed, gcloud can be installed following this [tutorial](https://cloud.google.com/sdk/docs/install). 
+
+2. For a **production use-case**, you will want to use service account authentication, in other words, a [service account](https://cloud.google.com/docs/authentication/getting-started).
+
+From [the service account key page in the Cloud Console](https://console.cloud.google.com/apis/credentials/serviceaccountkey) choose an existing account, or create a new one. 
+
+Download the JSON key file. Name it something you can remember, and **store it somewhere secure on your machine.**
+
+You supply the key to Terraform using the environment variable GOOGLE_APPLICATION_CREDENTIALS, setting the value to the location of the file, as follows:
+
+```
+export GOOGLE_APPLICATION_CREDENTIALS={{path}}
+```
 
 ## Usage
 
-```hcl
-module "mysql_instance" {
-  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
-  name = "cloud-sql-mysql-instance"
-  database_version = "MYSQL_5_7"
-  cloud_sql_region = "us-east1"
-}
+1. **Clone** the GitHub repository by running the following command on your terminal:
+
+```bash
+$ git clone https://github.com/crodriguezconde/terraform-google-cloud-sql.git
 ```
 
-Module Input Variables
-----------------------
+2. Change directory to the examples folder to deploy an example Cloud SQL instance.
 
-- `name`: (`Optional`)(`string`) The name of the Cloud SQL instance. If left empty, the module will generate a random name when creating the Cloud SQL instance.
+```bash
+$ cd terraform-google-cloud-sql/modules/examples/
+```
 
-- `database_version`: (`Optional`)(`string`) An optional MySQL version to use when creating a Cloud SQL instance. 
+3. Choose one of the examples:
 
-   **Default**: `MYSQL_5_6`
+```bash
+$ cd public_ip_mysql_instance/
+```
 
-   **Allowed_values**: `MYSQL_5_6, MYSQL_5_7, MYSQL_8_0`
+4. Run `terraform init` to download the different modules as well as the Google provider.
 
-- `cloud_sql_region`: (`Optional`)(`string`) The region the Cloud SQL instance will reside in.
+5. `(Optional)` Run `terraform plan` to see the different resources that will be created.
 
-   
-   [Here](https://cloud.google.com/sql/docs/mysql/locations) you will find the different region(s) available for Cloud SQL MySQL instances.
- 
-   **Default**: `us-central1`
+6. Run `terraform apply` to create the infrastructure within your Google Cloud Platform project.
 
-- `tier`: (`Optional`)(`string`) Tier of the Cloud SQL MySQL instance. [Here](https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing) you will find the list of available tier based on the region, as well as their pricing.
+7. Run `terraform destroy` to undeploy the resources created.
 
-  **Default**: `db-n1-standard-1`
-
-- `activation_policy`: (`Optional`)(`string`) This specifies whether the Cloud SQL MySQL instance should be active upon creation.
-
-  **Default**: `ALWAYS`
-
-  **Allowed_values**: `ALWAYS, NEVER, ON_DEMAND`
-
-- `availability_type`: (`Optional`)(`string`) The availability of the Cloud SQL MySQL instance. This value is helpful when trying to maximize uptime within your service(s).
-
-   Cloud SQL MySQL instances can be configured as **[High Availability (HA)](https://cloud.google.com/sql/docs/mysql/high-availability) or Single Zone (SZ)**.
-
-  
-  **Default**: `ZONAL`
-
-  
-  **Allowed_values**: `ZONAL, REGIONAL`
-
-- `disk_size`: (`Optional`)(`number`) The size of the Cloud SQL instance data disk, in GB. 
-
-  **⚠️** Please bear in mind the **size of a running instance cannot be reduce** but can be increased.
-   
-  **Default**: `1O GB`
-
-- `disk_autoresize`: (`Optional`)(`bool`) Configuration to increase storage size automatically.
-
-  **Default**: `true`
-
-- `binary_log_enabled`: (`Optional`)(`bool`). True if you would like to enable binary logs on Cloud SQL MySQL instance.
-
-  **Default**: `false`
-
-- `ipv4_enabled`: (`Optional`)(`bool`). Whether the Cloud SQL instance should be assigned a public IPv4 IP address.
-
-  **Default**: `true`
-
-- `vpc_network_id`: (`Optional`)(`string`). The VPC network from which the Cloud SQL instance is accessible using Private IP address. 
-
-  The format should be `projects/[project]/global/networks/[vpc_network]`
-
-- `require_ssl `: (`Optional`)(`bool`). Set to true if mysqld should default to REQUIRE X509 for users connnecting over IP.
-
-  **Default**: `false`
-
-
-- `maintenance_prefered_day `: (`Optional`)(`number`). Day of the week (1-7), starting on Monday in order to schedule the maintenance preference.
-
-- `maintenance_prefered_hour `: (`Optional`)(`number`). Hour of the day (0-23). Ignored if maintenance_prefered_day not set.
-
-- `update_track `: (`Optional`)(`string`). Receive updates before the maintenance (canary) or later (stable)
 
 
 
