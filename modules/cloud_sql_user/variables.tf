@@ -14,7 +14,7 @@ variable "sql_user_password" {
   type        = string
   description = "(Required) The password for the user."
 	validation {
-		condition = var.sql_user_password != null || var.sql_user_password !=""
+		condition = var.sql_user_password != null && var.sql_user_password != ""
 		error_message = "The Cloud SQL user password must not be empty."
 	}
 }
