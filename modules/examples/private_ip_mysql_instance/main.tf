@@ -14,18 +14,18 @@ provider "google" {
 
 module "vpc_network" {
   source           = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/vpc_network"
-  vpc_network_name = "private-csql-vpc"
+  vpc_network_name = var.vpc_network_name
   vpc_description  = "VPC network created to house the CSQL instance private IP."
-  routing_mode     = "GLOBAL"
+  routing_mode     = var.routing_mode
 }
 
 # ==== Allocated IP range definition ==== #
 
 module "allocated_ip_address_range" {
   source                    = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/allocated_ip_address_range"
-  name                      = "private-ip-allocation"
+  name                      = var.allocated_ip_address_range_name
   description               = "Allocation for the Cloud SQL instance."
-  prefix_length             = 16
+  prefix_length             = var.prefix_length
   address_type              = "INTERNAL"
   purpose                   = "VPC_PEERING"
   associated_vpc_network_id = module.vpc_network.vpc_network_id
@@ -45,14 +45,13 @@ module "private_mysql_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  name             = "private-mysql-instance"
-  database_version = "MYSQL_5_7"
-  cloud_sql_region = "europe-west1"
+  name             = var.instance_name
+  database_version = var.mysql_version
+  cloud_sql_region = var.sql_region
   # We are disabling the Public IP from the Cloud SQL instance as
   # we only want to access it through private IP address.
   ipv4_enabled   = false
   vpc_network_id = module.vpc_network.vpc_network_id
-
 
 }
 
@@ -63,7 +62,7 @@ module "private_mysql_instance" {
 module "cloud_sql_user" {
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
 
-  sql_user_name           = "${terraform.workspace}-terraform-user"
+  sql_user_name           = var.sql_user_name
   cloud_sql_instance_name = module.private_mysql_instance.name
   sql_user_password       = var.sql_user_password
 }
