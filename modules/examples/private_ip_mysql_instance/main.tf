@@ -65,6 +65,5 @@ module "cloud_sql_user" {
 
   sql_user_name           = "${terraform.workspace}-terraform-user"
   cloud_sql_instance_name = module.private_mysql_instance.name
-  # The password for the user should not be hardcoded in the configuration file, but just for the sake of the example, the password here is empty.
-  sql_user_password = ""
+  sql_user_password       = var.sql_user_password
 }
