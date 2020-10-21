@@ -14,9 +14,9 @@ module "public_mysql_instance" {
 
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
 
-  name             = "public-mysql-instance"
-  database_version = "MYSQL_5_7"
-  cloud_sql_region = "europe-west1"
+  name             = var.instance_name
+  database_version = var.mysql_version
+  cloud_sql_region = var.sql_region
 }
 
 # Second-generation instances include a default 'root'@'%' user with no password. 
@@ -26,7 +26,7 @@ module "public_mysql_instance" {
 module "cloud_sql_user" {
   source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
 
-  sql_user_name           = "${terraform.workspace}-terraform-user"
+  sql_user_name           = var.sql_user_name
   cloud_sql_instance_name = module.public_mysql_instance.name
   sql_user_password       = var.sql_user_password
 }
