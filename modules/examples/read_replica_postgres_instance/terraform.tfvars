@@ -9,7 +9,7 @@
 ### Variables definition for Cloud SQL instance
  instance_name = "private-postgres-instance"
  sql_region = "europe-west1"
- postgres_version = "MYSQL_5_7"
+ postgres_version = "POSTGRES_10"
 
 ## Variables definition for Cloud SQL user
  sql_user_name = "terraform-cloud-sql-postgres-user"
