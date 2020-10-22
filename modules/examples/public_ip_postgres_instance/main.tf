@@ -13,7 +13,7 @@ provider "google" {
 
 module "public_postgres_instance" {
 
-  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_postgres"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_postgres?ref=v0.0.2"
 
   name             = var.instance_name
   database_version = var.postgres_version
@@ -25,7 +25,7 @@ module "public_postgres_instance" {
 # Therefore, we will create a google_sql_user to define a custom user with a restricted host and strong password.
 
 module "cloud_sql_user" {
-  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user?ref=v0.0.2"
 
   sql_user_name           = var.sql_user_name
   cloud_sql_instance_name = module.public_postgres_instance.name
