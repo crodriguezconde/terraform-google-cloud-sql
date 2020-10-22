@@ -15,7 +15,7 @@ provider "google" {
 module "master_mysql_instance" {
 
 
-  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql?ref=v0.0.2"
 
   name             = var.instance_name
   database_version = var.mysql_version
@@ -31,7 +31,7 @@ module "master_mysql_instance" {
 
 # Any users created for the Cloud SQL master instance will be inherited to the read replica(s) instance as well.
 module "cloud_sql_user" {
-  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_user?ref=v0.0.2"
 
   sql_user_name           = var.sql_user_name
   cloud_sql_instance_name = module.master_mysql_instance.name
@@ -40,7 +40,7 @@ module "cloud_sql_user" {
 
 module "mysql_read_replica_instance" {
 
-  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql"
+  source = "git::https://github.com/crodriguezconde/terraform-google-cloud-sql.git//modules/cloud_sql_mysql?ref=v0.0.2"
 
   # This will create X different Cloud SQL MySQL read replica instances with the master instance name - count number
   count            = var.number_of_replicas
