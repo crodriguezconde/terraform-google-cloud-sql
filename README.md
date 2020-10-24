@@ -64,11 +64,13 @@ $ cd public_ip_mysql_instance/
 
 4. Run `terraform init` to download the different modules as well as the Google provider.
 
-5. `(Optional)` Run `terraform plan` to see the different resources that will be created.
+5. Modify the `terraform.tfvars` file to modify the values of the variables to be passed to the module. 
 
-6. Run `terraform apply` to create the infrastructure within your Google Cloud Platform project.
+6. `(Optional)` Run `terraform plan` to see the different resources that will be created.
 
-7. Run `terraform destroy` to undeploy the resources created.
+7. Run `terraform apply` to create the infrastructure within your Google Cloud Platform project.
+
+8. Run `terraform destroy` to undeploy the resources created.
 
 
 
